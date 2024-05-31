@@ -20,6 +20,10 @@ export const UserProfile = () => {
     const { connect } = useConnect();
     const connectors = useConnectors();
 
+    if (connectors.length === 0) {
+        return;
+    }
+
     if (!address) {
         return (
             <button
