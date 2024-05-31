@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { FiHeart } from "react-icons/fi";
 
 import { UserProfile } from "./profile/UserProfile";
+import { Tab, Tabs } from "./tabs/Tabs";
 
 export const App = () => {
+    const [tab, setTab] = useState<Tab>("vaults");
+
     return (
         <div className="relative flex min-h-dvh flex-col items-center gap-4 overflow-hidden bg-background-secondary p-4">
             <div className="flex w-full items-center justify-between">
@@ -13,7 +17,8 @@ export const App = () => {
                     <UserProfile />
                 </div>
             </div>
-            <div className="max-w flex w-full flex-col gap-4">
+            <div className="max-w flex w-full flex-col gap-2">
+                <Tabs activeTab={tab} onTabChange={setTab} />
                 <div className="flex h-fit flex-col gap-4 rounded-xl border-border bg-background-primary p-4">
                     <p>
                         Create your own vault 📦, supply a list of names, set a
