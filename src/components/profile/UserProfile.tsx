@@ -3,6 +3,7 @@ import { FiExternalLink } from "react-icons/fi";
 import {
     useAccount,
     useConnect,
+    useConnectors,
     useDisconnect,
     useEnsAvatar,
     useEnsName
@@ -17,6 +18,7 @@ export const UserProfile = () => {
     const { data: avatar } = useEnsAvatar({ name: name || "" });
     const { disconnect } = useDisconnect();
     const { connect } = useConnect();
+    const connectors = useConnectors();
 
     if (!address) {
         return (
@@ -24,7 +26,7 @@ export const UserProfile = () => {
                 className="btn"
                 onClick={() => connect({ connector: embedConnector })}
             >
-                Connect
+                Connect ({connectors.map((c) => c.name).join(", ")})
             </button>
         );
     }
