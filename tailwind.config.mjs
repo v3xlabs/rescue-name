@@ -3,7 +3,10 @@
 export default {
     content: ["./src/**/*.{mjs,js,ts,jsx,tsx}"],
     theme: {
+        // Remove default colors
+        colors: {},
         extend: {
+            // Add ENS colors (light/dark dependent)
             colors: {
                 "blue-primary": "var(--thorin-blue-primary)",
                 "blue-active": "var(--thorin-blue-active)",

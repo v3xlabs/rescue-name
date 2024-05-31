@@ -1,4 +1,5 @@
 import { formatAddress } from "ens-tools";
+import { FiExternalLink } from "react-icons/fi";
 import {
     useAccount,
     useConnect,
@@ -13,7 +14,7 @@ const embedConnector = injected();
 export const UserProfile = () => {
     const { address } = useAccount();
     const { data: name } = useEnsName({ address });
-    const { data: avatar } = useEnsAvatar({ name: "luc.eth" });
+    const { data: avatar } = useEnsAvatar({ name: name || "" });
     const { disconnect } = useDisconnect();
     const { connect } = useConnect();
 
@@ -30,23 +31,36 @@ export const UserProfile = () => {
 
     return (
         <div className="group relative">
-            <button className="relative z-10 flex h-10 justify-center rounded-xl border border-border bg-background-primary px-4 py-2 leading-snug">
+            <button className="relative z-10 flex h-10 min-w-32 justify-center gap-1 rounded-xl border border-border bg-background-primary px-4 py-2 pl-3 leading-snug">
                 {avatar && (
                     <div className="aspect-square h-full overflow-hidden rounded-full">
                         <img src={avatar} alt={name || undefined} />
                     </div>
                 )}
-                <div className="flex-col justify-center">
+                <div className="flex-col justify-center pl-1">
                     <div>{name || formatAddress(address)}</div>
-                    {name && (
+                    {/* {name && (
                         <div className="text-sm text-text-secondary">
                             {formatAddress(address)}
                         </div>
-                    )}
+                    )} */}
                 </div>
             </button>
-            <div className="absolute inset-x-0 -mt-2 hidden flex-col items-center rounded-b-lg border border-border bg-background-primary pt-2 group-hover:flex">
-                <button className="px-2" onClick={() => disconnect()}>
+            <div className="absolute inset-x-0 -mt-2 hidden flex-col items-center text-nowrap rounded-b-lg border border-border bg-background-primary pt-2 group-hover:flex">
+                {name && (
+                    <a
+                        href={`https://ens.app/${name}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex w-full items-center gap-1 px-2 py-1 text-center hover:bg-blue-surface"
+                    >
+                        view profile <FiExternalLink className="text-sm" />
+                    </a>
+                )}
+                <button
+                    className="w-full px-2 py-1 hover:bg-red-surface"
+                    onClick={() => disconnect()}
+                >
                     disconnect
                 </button>
             </div>
