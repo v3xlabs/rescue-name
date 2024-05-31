@@ -32,7 +32,12 @@ export const App = () => {
                 </div>
                 <div className="flex items-center justify-center gap-2">
                     Built with <FiHeart /> by{" "}
-                    <a href="https://v3x.company" className="link">
+                    <a
+                        href="https://v3x.company"
+                        className="link"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
                         @v3xlabs
                     </a>
                 </div>
