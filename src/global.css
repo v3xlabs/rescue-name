@@ -241,3 +241,7 @@ html.dark {
     --thorin-background-disabled: #424347;
     --thorin-border: #42464E;
 }
+
+.link {
+    @apply underline;
+}
