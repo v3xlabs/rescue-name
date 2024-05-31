@@ -23,9 +23,14 @@
     },
     "dependencies": {
         "@ensdomains/thorin": "^0.6.50",
+        "@tanstack/react-query": "^5.40.0",
+        "ens-tools": "^0.0.14",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
-        "react-icons": "^5.2.1"
+        "react-icons": "^5.2.1",
+        "swr": "^2.2.5",
+        "viem": "^2.13.2",
+        "wagmi": "^2.9.8"
     },
     "devDependencies": {
         "@testing-library/jest-dom": "^6.4.5",
