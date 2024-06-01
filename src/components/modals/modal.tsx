@@ -14,7 +14,7 @@ export const Modal: FC<
         <div className="fixed inset-0 z-50 overflow-y-auto">
             <div className="relative">
                 <div
-                    className="bg-background-disabled/25 absolute inset-0 overflow-y-auto backdrop-blur-sm"
+                    className="bg-background-disabled/25 absolute inset-0 backdrop-blur-sm"
                     onClick={dismissOnBgClick ? onCloseRequest : undefined}
                 />
                 <div className="flex justify-center px-4 py-12 md:py-32">
