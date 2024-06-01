@@ -11,8 +11,8 @@ export const Modal: FC<
     }>
 > = ({ children, title, onCloseRequest, dismissOnBgClick = true }) => {
     return (
-        <div className="fixed inset-0 z-50 overflow-y-auto">
-            <div className="relative">
+        <div className="fixed inset-0 z-50 min-h-screen overflow-y-auto">
+            <div className="relative min-h-screen min-w-full">
                 <div
                     className="bg-background-disabled/25 absolute inset-0 backdrop-blur-sm"
                     onClick={dismissOnBgClick ? onCloseRequest : undefined}
