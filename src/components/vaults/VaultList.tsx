@@ -34,17 +34,11 @@ export const VaultList = () => {
                 {!isLoading && lastVaultId === 0n && <div>No vaults found</div>}
                 {!isLoading && lastVaultId! > 0n && (
                     <div>
-                        {
-                            // Iterate from 0 to lastVaultId
-                            Array.from({ length: Number(lastVaultId) }).map(
-                                (_, index) => (
-                                    <VaultEntry
-                                        key={index}
-                                        vault={BigInt(index)}
-                                    />
-                                )
+                        {Array.from({ length: Number(lastVaultId) }).map(
+                            (_, index) => (
+                                <VaultEntry key={index} vault={BigInt(index)} />
                             )
-                        }
+                        )}
                     </div>
                 )}
             </div>
