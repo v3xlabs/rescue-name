@@ -10,13 +10,15 @@ export const Modal: FC<
 > = ({ children, onCloseRequest, dismissOnBgClick = true }) => {
     return (
         <div className="fixed inset-0 z-50 overflow-y-auto">
-            <div
-                className="relative"
-                onClick={dismissOnBgClick ? onCloseRequest : undefined}
-            >
-                <div className="bg-background-disabled/25 absolute inset-0 -z-10 overflow-y-auto backdrop-blur-sm"></div>
-                <div className="z-10 flex justify-center px-4 py-12 md:py-32">
-                    <div className="card w-full max-w-96 p-4">{children}</div>
+            <div className="relative">
+                <div
+                    className="bg-background-disabled/25 absolute inset-0 overflow-y-auto backdrop-blur-sm"
+                    onClick={dismissOnBgClick ? onCloseRequest : undefined}
+                />
+                <div className="flex justify-center px-4 py-12 md:py-32">
+                    <div className="card z-10 w-full max-w-96 p-4">
+                        {children}
+                    </div>
                 </div>
             </div>
         </div>
