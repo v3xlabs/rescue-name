@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { FC } from "react";
 
-export const TABS = ["names", "vaults"];
+export const TABS = ["vaults", "names"];
 export type Tab = (typeof TABS)[number];
 
 export const Tabs: FC<{ activeTab: Tab; onTabChange: (tab: Tab) => void }> = ({

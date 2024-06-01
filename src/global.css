@@ -254,3 +254,7 @@ html.dark {
 .btn {
     @apply bg-blue-primary hover:bg-blue-dim text-text-accent cursor-pointer px-4 py-2 rounded-lg;
 }
+
+.card {
+    @apply bg-background-primary rounded-lg border border-border;
+}
