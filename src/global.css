@@ -259,6 +259,14 @@ html.dark {
     @apply bg-blue-primary hover:bg-blue-dim text-text-accent cursor-pointer px-4 py-2 rounded-lg;
 }
 
+.btn[disabled] {
+    @apply bg-grey-dim text-text-disabled cursor-not-allowed;
+}
+
 .card {
     @apply bg-background-primary rounded-lg border border-border;
+}
+
+.input {
+    @apply border border-border bg-background-primary rounded-lg px-4 py-2;
 }

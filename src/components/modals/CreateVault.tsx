@@ -8,7 +8,8 @@ import { CONTRACT_ADDRESS } from "../../constants";
 import { Modal } from "./modal";
 
 type Inputs = {
-    deadline: number;
+    deadline: bigint;
+    reward: bigint;
 };
 
 export const CreateVault: FC<{ onClose: () => void }> = ({ onClose }) => {
@@ -20,42 +21,75 @@ export const CreateVault: FC<{ onClose: () => void }> = ({ onClose }) => {
         handleSubmit,
         watch,
         formState: { errors }
-    } = useForm<Inputs>();
+    } = useForm<Inputs>({
+        defaultValues: { deadline: 15n, reward: 25n },
+        reValidateMode: "onChange",
+        mode: "onBlur"
+    });
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         console.log(data);
-
-        const deadline = 15n;
-        const reward = 25n;
 
         writeContract({
             abi: RESCUE_NAME_ABI,
             address: CONTRACT_ADDRESS[chainId],
             functionName: "createVault",
             chain: sepolia,
-            args: [deadline, reward]
+            args: [data.deadline, data.reward]
         });
     };
 
-    console.log(watch("deadline"));
+    const hasError = Object.keys(errors).length > 0;
 
     return (
         <Modal onCloseRequest={onClose} title="Create Vault">
-            <p>
-                Simply create your vault, top it up (send ETH), and add names to
-                it (later step).
-            </p>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <label htmlFor="deadline">
-                    Deadline (in days, default is 15):
-                </label>
-                <input
-                    defaultValue="15"
-                    {...register("deadline", { required: true })}
-                />
-                {errors.deadline && <span>{errors.deadline.message}</span>}
+            <div className="w-full space-y-2">
+                <p>
+                    Simply create your vault, top it up (send ETH), and add
+                    names to it (later step).
+                </p>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="w-full space-y-4">
+                        <div className="w-full">
+                            <label
+                                htmlFor="deadline"
+                                className="text-text-secondary"
+                            >
+                                Deadline (in days, default is 15):
+                            </label>
+                            <input
+                                defaultValue="15"
+                                className="input w-full"
+                                {...register("deadline", { required: true })}
+                            />
+                            {errors.deadline && (
+                                <span>{errors.deadline.message}</span>
+                            )}
+                        </div>
+                        <div className="w-full">
+                            <label
+                                htmlFor="reward"
+                                className="text-text-secondary"
+                            >
+                                Reward (% out of 100, default is 25%):
+                            </label>
+                            <input
+                                defaultValue="25"
+                                className="input w-full"
+                                {...register("reward", { required: true })}
+                            />
+                            {errors.reward && (
+                                <span>{errors.reward.message}</span>
+                            )}
+                        </div>
 
-                <input type="submit" className="btn w-full" />
-            </form>
+                        <input
+                            type="submit"
+                            className="btn w-full"
+                            disabled={hasError}
+                        />
+                    </div>
+                </form>
+            </div>
         </Modal>
     );
 };
