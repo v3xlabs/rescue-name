@@ -1,9 +1,14 @@
 import { CreateVault } from "components/modals/CreateVault";
+import { useLastVaultId } from "hooks/useLastVaultId";
 import { useState } from "react";
+import { FiLoader } from "react-icons/fi";
 import { useAccount } from "wagmi";
+
+import { VaultEntry } from "./VaultEntry";
 
 export const VaultList = () => {
     // const { data: myVaults, isLoading } = useMyVaults();
+    const { data: lastVaultId, isLoading } = useLastVaultId();
     const { address } = useAccount();
     const [modalOpen, setModalOpen] = useState(false);
 
@@ -21,21 +26,27 @@ export const VaultList = () => {
                 )}
             </div>
             <div>
-                {/* {isLoading && (
+                {isLoading && (
                     <div>
                         <FiLoader />
                     </div>
                 )}
-                {!isLoading && myVaults && myVaults.length === 0 && (
-                    <div>No vaults found</div>
-                )}
-                {!isLoading && myVaults && myVaults.length > 0 && (
+                {!isLoading && lastVaultId === 0n && <div>No vaults found</div>}
+                {!isLoading && lastVaultId! > 0n && (
                     <div>
-                        {myVaults.map((vault) => (
-                            <VaultEntry key={vault.address} vault={vault} />
-                        ))}
+                        {
+                            // Iterate from 0 to lastVaultId
+                            Array.from({ length: Number(lastVaultId) }).map(
+                                (_, index) => (
+                                    <VaultEntry
+                                        key={index}
+                                        vault={BigInt(index)}
+                                    />
+                                )
+                            )
+                        }
                     </div>
-                )} */}
+                )}
             </div>
         </div>
     );
