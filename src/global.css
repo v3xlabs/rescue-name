@@ -5,6 +5,10 @@ body {
     font-size: 16px;
 }
 
+html {
+    background: var(--thorin-background-primary);
+}
+
 * {
     box-sizing: border-box;
 }
