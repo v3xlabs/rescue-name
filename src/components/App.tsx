@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FiHeart } from "react-icons/fi";
 
+import { NameList } from "./names/NameList";
 import { UserProfile } from "./profile/UserProfile";
 import { Tab, Tabs } from "./tabs/Tabs";
 import { VaultList } from "./vaults/VaultList";
@@ -34,6 +35,7 @@ export const App = () => {
                     </div>
                 )}
                 {tab === "vaults" && <VaultList />}
+                {tab === "names" && <NameList />}
                 <div className="flex items-center justify-center gap-2">
                     Built with <FiHeart /> by{" "}
                     <a
