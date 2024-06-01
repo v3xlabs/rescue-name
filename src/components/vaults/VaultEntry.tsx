@@ -1,21 +1,37 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import { VaultInfo } from "components/modals/VaultInfo";
 import { formatAddress } from "ens-tools";
-import { FC } from "react";
-import { Vault } from "types/vault";
+import { useVaultBalance } from "hooks/useVaultBalance";
+import { useVaultOwner } from "hooks/useVaultOwner";
+import { FC, useState } from "react";
 import { useEnsName } from "wagmi";
 
-export const VaultEntry: FC<{ vault: Vault }> = ({ vault }) => {
-    const { data: name } = useEnsName({ address: vault.owner as "0x{string}" });
+export const VaultEntry: FC<{ vault: bigint }> = ({ vault }) => {
+    const { data: owner } = useVaultOwner(vault);
+    const { data: name } = useEnsName({ address: owner });
+    const { data: balance } = useVaultBalance(vault);
+
+    const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div className="flex justify-between border-b border-border p-2">
-            <div>
-                <div>{formatAddress(vault.address)}</div>
-                <div>{name || formatAddress(vault.owner)}</div>
+        <div>
+            <div
+                className="flex justify-between border-b border-border p-2"
+                onClick={() => setIsOpen(true)}
+            >
+                <div>
+                    <div>{vault.toString()}</div>
+                    <div>{name || formatAddress(owner || "")}</div>
+                </div>
+                <div>
+                    {/* <div>{vault.name_count} names</div> */}
+                    <div>{balance} ETH</div>
+                </div>
             </div>
-            <div>
-                <div>{vault.name_count} names</div>
-                <div>{vault.balance} ETH</div>
-            </div>
+            {isOpen && (
+                <VaultInfo vaultId={vault} onClose={() => setIsOpen(false)} />
+            )}
         </div>
     );
 };

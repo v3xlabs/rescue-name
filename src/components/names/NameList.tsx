@@ -35,7 +35,7 @@ export const NameList = () => {
     return (
         <div className="card w-full p-4">
             <div className="flex w-full items-center justify-between">
-                <div className="pl-2 font-bold">Vaults</div>
+                <div className="pl-2 font-bold">All Names</div>
                 {/* {address && <button className="btn">Create</button>} */}
             </div>
             <div>
