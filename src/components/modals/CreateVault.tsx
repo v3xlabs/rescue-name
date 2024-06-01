@@ -7,7 +7,7 @@ export const CreateVault: FC<{ onClose: () => void }> = ({ onClose }) => {
     const { address } = useAccount();
 
     return (
-        <Modal>
+        <Modal onCloseRequest={onClose}>
             <div>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
                 iaculis magna efficitur, ultricies mi sed, malesuada turpis.
