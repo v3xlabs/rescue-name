@@ -13,7 +13,22 @@ export const App = () => {
         <div className="relative flex min-h-dvh flex-col items-center gap-4 overflow-hidden bg-background-secondary p-4">
             <div className="flex w-full items-center justify-between">
                 <div>
-                    <h1>Rescue Name</h1>
+                    <h1 className="text-xl font-bold text-blue-primary">
+                        <span>Rescue</span>
+                        <span>.</span>
+                        <span>Name</span>
+                    </h1>
+                    <p className="text-sm text-text-secondary">
+                        by{" "}
+                        <a
+                            href="https://github.com/v3xlabs"
+                            target="_blank"
+                            className="hover:underline"
+                            rel="noreferrer"
+                        >
+                            @v3xlabs
+                        </a>
+                    </p>
                 </div>
                 <div>
                     <UserProfile />
