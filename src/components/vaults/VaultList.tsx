@@ -1,13 +1,9 @@
 import { CreateVault } from "components/modals/CreateVault";
-import { useMyVaults } from "hooks/useMyVaults";
 import { useState } from "react";
-import { FiLoader } from "react-icons/fi";
 import { useAccount } from "wagmi";
 
-import { VaultEntry } from "./VaultEntry";
-
 export const VaultList = () => {
-    const { data: myVaults, isLoading } = useMyVaults();
+    // const { data: myVaults, isLoading } = useMyVaults();
     const { address } = useAccount();
     const [modalOpen, setModalOpen] = useState(false);
 
@@ -25,7 +21,7 @@ export const VaultList = () => {
                 )}
             </div>
             <div>
-                {isLoading && (
+                {/* {isLoading && (
                     <div>
                         <FiLoader />
                     </div>
@@ -39,7 +35,7 @@ export const VaultList = () => {
                             <VaultEntry key={vault.address} vault={vault} />
                         ))}
                     </div>
-                )}
+                )} */}
             </div>
         </div>
     );
