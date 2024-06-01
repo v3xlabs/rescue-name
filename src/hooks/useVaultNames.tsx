@@ -1,8 +1,8 @@
 import { useChainId } from "wagmi";
 
-export const useVaultBalance = (vaultId: bigint) => {
+export const useVaultNames = (vaultId: bigint) => {
     const chainId = useChainId();
 
     // TODO: hook up to substream
-    return [];
+    return { data: ["lucemans", "nevvdevv"] };
 };
