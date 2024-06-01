@@ -5,6 +5,7 @@ import { formatAddress } from "ens-tools";
 import { useVaultBalance } from "hooks/useVaultBalance";
 import { useVaultOwner } from "hooks/useVaultOwner";
 import { FC, useState } from "react";
+import { formatEther } from "viem";
 import { useEnsName } from "wagmi";
 
 export const VaultEntry: FC<{ vault: bigint }> = ({ vault }) => {
@@ -21,12 +22,14 @@ export const VaultEntry: FC<{ vault: bigint }> = ({ vault }) => {
                 onClick={() => setIsOpen(true)}
             >
                 <div>
-                    <div>{vault.toString()}</div>
-                    <div>{name || formatAddress(owner || "")}</div>
+                    <div>#{vault.toString()}</div>
+                    <div className="text-text-secondary">
+                        {name || formatAddress(owner || "")}
+                    </div>
                 </div>
                 <div>
                     {/* <div>{vault.name_count} names</div> */}
-                    <div>{balance} ETH</div>
+                    <div>{formatEther(balance || 0n)} ETH</div>
                 </div>
             </div>
             {isOpen && (
