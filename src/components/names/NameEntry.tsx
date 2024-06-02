@@ -1,4 +1,3 @@
-// @ts-nocheck
 import clsx from "clsx";
 import { useExpiry } from "hooks/useExpiry";
 import React, { useEffect } from "react";
@@ -10,7 +9,8 @@ export const NameEntry: React.FC<{
     onExpiryUpdate: (name: string, expiry: bigint) => void;
     selected: boolean;
     onSelect: () => void;
-}> = ({ name, onExpiryUpdate, selected, onSelect }) => {
+    vaults: bigint[];
+}> = ({ name, onExpiryUpdate, selected, onSelect, vaults }) => {
     // const [selected, setSelected] = useState(false);
     const { data: expiry, error } = useExpiry(name);
 
@@ -21,30 +21,26 @@ export const NameEntry: React.FC<{
         }
     }, [expiry, name, onExpiryUpdate]);
 
-    const handleClick = () => {
-        onSelect();
-        // onSelect();
-    };
-
     return (
         <button
             className={clsx(
-                "card my-2 flex w-full flex-col gap-2 p-4 pt-0",
+                "card my-2 flex w-full flex-col gap-2 p-4",
                 selected && "bg-background-disabled"
             )}
-            onClick={handleClick}
+            onClick={onSelect}
         >
             <div className="flex w-full flex-col">
-                <div className="flex items-center justify-between">
-                    <div className="flex flex-col items-start">
-                        <div className="font-semibold">{name}</div>
-                        <div className="text-xs font-medium">Vault: 0</div>
+                <div className="flex flex-col items-start">
+                    <div className="font-bold">
+                        {name}
+                        <span className="text-text-secondary">.eth</span>
                     </div>
-                    <div>
-                        {expiry
-                            ? formatDate(expiry.expiry.date.toString())
-                            : ""}
+                    <div className="text-xs font-medium">
+                        Vault: {vaults.map((vault) => "#" + vault).join(", ")}
                     </div>
+                </div>
+                <div>
+                    {expiry ? formatDate(expiry.expiry.date.toString()) : ""}
                 </div>
             </div>
         </button>

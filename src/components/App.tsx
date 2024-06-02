@@ -23,7 +23,7 @@ export const App = () => {
                         <a
                             href="https://github.com/v3xlabs"
                             target="_blank"
-                            className="hover:underline"
+                            className="hover:text-blue-primary hover:underline"
                             rel="noreferrer"
                         >
                             @v3xlabs
@@ -51,16 +51,29 @@ export const App = () => {
                 )}
                 {tab === "vaults" && <VaultList />}
                 {tab === "names" && <NameList />}
-                <div className="flex items-center justify-center gap-2">
-                    Built with <FiHeart /> by{" "}
-                    <a
-                        href="https://v3x.company"
-                        className="link"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        @v3xlabs
-                    </a>
+                <div>
+                    <div className="flex items-center justify-center gap-2">
+                        Built with <FiHeart /> by{" "}
+                        <a
+                            href="https://v3x.company"
+                            className="link"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            @v3xlabs
+                        </a>
+                    </div>
+                    <div className="text-center text-text-secondary">
+                        view source on{" "}
+                        <a
+                            className="link"
+                            target="_blank"
+                            href="https://github.com/v3xlabs/rescue-name"
+                            rel="noreferrer"
+                        >
+                            Github
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

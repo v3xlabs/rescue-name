@@ -1,24 +1,10 @@
 import clsx from "clsx";
 import { RescueModal } from "components/modals/RescueModal";
-import { gql } from "graphql-request";
 import { useExpiryNames } from "hooks/useExpiryNames";
 import { useCallback, useState } from "react";
 import { useAccount } from "wagmi";
 
 import { NameEntry } from "./NameEntry";
-
-const VAULT_QUERY = gql`
-    {
-        query {
-            allRescuenameNameAddeds {
-                nodes {
-                    name
-                    vault
-                }
-            }
-        }
-    }
-`;
 
 export const NameList = () => {
     const { data: names } = useExpiryNames();
@@ -46,11 +32,25 @@ export const NameList = () => {
         setExpiryDates((previous) => ({ ...previous, [name]: expiry }));
     }, []);
 
+    // Merge entries by name, so all "lucemans" entries should combine and vaultId becomes vaults[]
+    const mergedNames = names?.reduce(
+        (accumulator, name) => {
+            if (!accumulator[name.name]) {
+                accumulator[name.name] = [];
+            }
+
+            accumulator[name.name].push(BigInt(name.vault));
+
+            return accumulator;
+        },
+        {} as { [key: string]: bigint[] }
+    );
+
     const sortedNames =
-        names &&
-        [...names].sort((a, b) => {
-            const expiryA = expiryDates[a.name];
-            const expiryB = expiryDates[b.name];
+        mergedNames &&
+        [...Object.keys(mergedNames)].sort((a, b) => {
+            const expiryA = expiryDates[a];
+            const expiryB = expiryDates[b];
 
             if (expiryA === undefined && expiryB === undefined) return 0;
 
@@ -65,23 +65,29 @@ export const NameList = () => {
             return 0;
         });
 
+    const selectedNamesByVault = selectedNames.reduce(
+        (accumulator, name) => {
+            const vaults = mergedNames![name];
+
+            const vaultId = vaults[0].toString();
+
+            if (!accumulator[vaultId]) {
+                accumulator[vaultId] = [];
+            }
+
+            accumulator[vaultId].push(name);
+
+            return accumulator;
+        },
+        {} as { [key: string]: string[] }
+    );
+
+    const selectedVaults = Object.keys(selectedNamesByVault);
+
     return (
         <div className="card w-full p-4">
             <div className="flex w-full items-center justify-between">
                 <div className="pl-2 font-bold">All Names</div>
-                <div className="pl-2 font-thin">
-                    {sortedNames?.length ? sortedNames!.length + " vaults" : ""}
-                </div>
-                {/* <select className="appearance-none bg-background-secondary p-2 rounded-lg " name="filter" id="filter">
-                <option value="0">Vault 0</option>
-                </select> */}
-                <input
-                    className="rounded-md bg-background-secondary p-2"
-                    type="number"
-                    name="vaultFlter"
-                    id="vaultFlter"
-                    placeholder="Filter by vault..."
-                />
                 <button
                     disabled={address && selectedNames.length === 0}
                     className={clsx(
@@ -95,23 +101,25 @@ export const NameList = () => {
                 {modalOpen && (
                     <RescueModal
                         onClose={() => setModalOpen(false)}
-                        labels={[["lucemans"]]}
-                        vaults={[0n]}
+                        vaults={selectedVaults.map((vault) => BigInt(vault))}
+                        labels={selectedVaults.map(
+                            (vault) => selectedNamesByVault[vault]
+                        )}
                     />
                 )}
             </div>
             <div className="">
                 {sortedNames?.map((name) => (
                     <NameEntry
-                        key={name.name + "-#-" + name.vault}
-                        name={name.name}
+                        key={name}
+                        name={name}
+                        vaults={mergedNames![name]}
                         onExpiryUpdate={handleExpiryUpdate}
-                        selected={selectedNames.includes(name.name)}
-                        onSelect={() => handleSelect(name.name)} // Fix: Pass the name property of the name object to handleSelect
+                        selected={selectedNames.includes(name)}
+                        onSelect={() => handleSelect(name)}
                     />
                 ))}
             </div>
-            {selectedNames.toString()}
         </div>
     );
 };

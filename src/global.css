@@ -252,7 +252,7 @@ html.dark {
 }
 
 .link {
-    @apply underline hover:font-bold;
+    @apply underline hover:text-blue-primary;
 }
 
 .btn {
