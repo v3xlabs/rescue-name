@@ -4,8 +4,11 @@ An decentralized vault-based ENS renewal manager.
 
 Simply create a vault, top it up, supply it with a list of names, and anyone can renew your name.
 
+> 
 > 👷🏽‍♀️ Hackathon Project
+> 
 > This project was created at [ETHPrague 2024](https://ethprague.com)
+> 
 
 ## Abstract
 
