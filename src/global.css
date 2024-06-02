@@ -270,3 +270,11 @@ html.dark {
 .input {
     @apply border border-border bg-background-primary rounded-lg px-4 py-2;
 }
+
+.tag {
+    @apply rounded-xl px-2;
+}
+
+.tag-blue {
+    @apply bg-blue-surface text-blue-primary;
+}
