@@ -1,6 +1,6 @@
 # 🛟 [rescue.name](https://rescue.name)
 
-An decentralized vault-based ENS renewal manager.
+A decentralized vault-based ENS renewal manager.
 
 > 👷🏽‍♀️ Hackathon Project
 >
