@@ -34,7 +34,7 @@ export const useExpiryNames = () => {
     const { data: block } = useBlockNumber({ chainId });
 
     return useSWR(
-        "/subgrpah/" + block,
+        "/subgraph/all/" + block,
         async (): Promise<{ name: string; vault: string }[]> => {
             const x = await axios.post(
                 // Yes, this uses a cors-anywhere bypass. This is a demo.

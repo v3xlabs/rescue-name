@@ -36,7 +36,7 @@ export const VaultEntry: FC<{ vault: bigint }> = ({ vault }) => {
                     </div>
                 </div>
                 <div className="text-right">
-                    <div>{names.length} names</div>
+                    <div>{names?.length} names</div>
                     <div>{formatEther(balance || 0n)} ETH</div>
                 </div>
             </div>
