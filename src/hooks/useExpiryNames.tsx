@@ -1,13 +1,51 @@
+import axios from "axios";
+import { gql } from "graphql-request";
 import useSWR from "swr";
 
+const query = gql`
+    {
+        query {
+            allRescuenameNameAddeds {
+                nodes {
+                    name
+                    vault
+                }
+            }
+        }
+    }
+`;
+
+export type ExpiryNames = {
+    data: {
+        query: {
+            allRescuenameNameAddeds: {
+                nodes: {
+                    name: string;
+                    vault: string; // but number
+                }[];
+            };
+        };
+    };
+};
+
 export const useExpiryNames = () => {
-    return useSWR("/my/names", async (): Promise<string[]> => {
-        // TODO: Placeholder
-        const names = await fetch("./names.json");
+    return useSWR(
+        "/my/names",
+        async (): Promise<{ name: string; vault: string }[]> => {
+            const x = await axios.post(
+                // Yes, this uses a cors-anywhere bypass. This is a demo.
+                // The streamingfast entrypoint doesnt output the right cors headers
+                "https://cors-anywhere.herokuapp.com/https://srv.streamingfast.io/9e804b35/graphql",
+                {
+                    query
+                }
+            );
 
-        // eslint-disable-next-line unicorn/no-await-expression-member
-        const names2 = (await names.json())["names"];
+            const xy = x.data as ExpiryNames;
 
-        return names2.filter((name: string) => name.length >= 5 + 4);
-    });
+            return xy.data.query.allRescuenameNameAddeds.nodes.filter(
+                (node) => node.name.length >= 5
+            );
+        }
+    );
 };

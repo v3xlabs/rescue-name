@@ -1,7 +1,6 @@
-// @ts-nocheck
-import { gql, useQuery } from "@apollo/client";
 import clsx from "clsx";
 import { RescueModal } from "components/modals/RescueModal";
+import { gql } from "graphql-request";
 import { useExpiryNames } from "hooks/useExpiryNames";
 import { useCallback, useState } from "react";
 import { useAccount } from "wagmi";
@@ -11,10 +10,10 @@ import { NameEntry } from "./NameEntry";
 const VAULT_QUERY = gql`
     {
         query {
-            allRescuenameRescueNameVaultCreateds {
+            allRescuenameNameAddeds {
                 nodes {
-                    vaultId
-                    owner
+                    name
+                    vault
                 }
             }
         }
@@ -27,16 +26,11 @@ export const NameList = () => {
         {}
     );
     const { address } = useAccount();
-    const [selectedNames, setSelectedNames] = useState([]);
+    const [selectedNames, setSelectedNames] = useState<string[]>([]);
     const [modalOpen, setModalOpen] = useState(false);
-    const { data, loading, error } = useQuery(VAULT_QUERY);
 
-    if (loading) return "Loading...";
-
-    if (error) return <pre>{error.message}</pre>;
-
-    const handleSelect = (name) => {
-        const newSelectedNames = [...selectedNames]; 
+    const handleSelect = (name: string) => {
+        const newSelectedNames = [...selectedNames];
         const index = newSelectedNames.indexOf(name);
 
         if (index !== -1) {
@@ -55,8 +49,8 @@ export const NameList = () => {
     const sortedNames =
         names &&
         [...names].sort((a, b) => {
-            const expiryA = expiryDates[a];
-            const expiryB = expiryDates[b];
+            const expiryA = expiryDates[a.name];
+            const expiryB = expiryDates[b.name];
 
             if (expiryA === undefined && expiryB === undefined) return 0;
 
@@ -76,13 +70,13 @@ export const NameList = () => {
             <div className="flex w-full items-center justify-between">
                 <div className="pl-2 font-bold">All Names</div>
                 <div className="pl-2 font-thin">
-                    {data ? data.query.allRescuenameRescueNameVaultCreateds.nodes.length : ''} vaults
+                    {sortedNames?.length ? sortedNames!.length + " vaults" : ""}
                 </div>
                 {/* <select className="appearance-none bg-background-secondary p-2 rounded-lg " name="filter" id="filter">
                 <option value="0">Vault 0</option>
                 </select> */}
                 <input
-                    className="bg-background-secondary rounded-md p-2"
+                    className="rounded-md bg-background-secondary p-2"
                     type="number"
                     name="vaultFlter"
                     id="vaultFlter"
@@ -102,18 +96,18 @@ export const NameList = () => {
                     <RescueModal
                         onClose={() => setModalOpen(false)}
                         labels={[["lucemans"]]}
-                        vaults={[0]}
+                        vaults={[0n]}
                     />
                 )}
             </div>
             <div className="">
                 {sortedNames?.map((name) => (
                     <NameEntry
-                        key={name}
-                        name={name}
+                        key={name.name + "-#-" + name.vault}
+                        name={name.name}
                         onExpiryUpdate={handleExpiryUpdate}
-                        selected={selectedNames.includes(name)} // Check if selected
-                        onSelect={() => handleSelect(name)}
+                        selected={selectedNames.includes(name.name)}
+                        onSelect={() => handleSelect(name.name)} // Fix: Pass the name property of the name object to handleSelect
                     />
                 ))}
             </div>
