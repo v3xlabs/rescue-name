@@ -20,7 +20,7 @@ The smart contracts is deployed on Sepolia, and can be found at [0x78ac7f4856ad3
 | ----------- | --------------------------------------------------------------------------------- |
 | Contracts   | [v3xlabs/rescue-name-contracts](https://github.com/v3xlabs/rescue-name-contracts) |
 | Substream   | [v3xlabs/rescue-name-substream](https://github.com/v3xlabs/rescue-name-substream) |
-| Frontend    | [v3xlabs/rescue-name](https://github.com/v3xlabs/rescue-name)                     |
+| Frontend    | [v3xlabs/rescue-name](https://github.com/v3xlabs/rescue-name) (you are here)      |
 
 ## Team
 
