@@ -1,4 +1,4 @@
-name: Deploy to IPFS signal
+name: Deploy to Edgeserver
 
 on:
   push:
