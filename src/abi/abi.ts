@@ -89,6 +89,29 @@ export const RESCUE_NAME_ABI = [
                 internalType: "string[][]"
             },
             {
+                name: "payee",
+                type: "address",
+                internalType: "address payable"
+            }
+        ],
+        outputs: [],
+        stateMutability: "payable"
+    },
+    {
+        type: "function",
+        name: "getPrice",
+        inputs: [
+            {
+                name: "vaults",
+                type: "uint256[]",
+                internalType: "uint256[]"
+            },
+            {
+                name: "names",
+                type: "string[][]",
+                internalType: "string[][]"
+            },
+            {
                 name: "price",
                 type: "uint256",
                 internalType: "uint256"
@@ -99,8 +122,14 @@ export const RESCUE_NAME_ABI = [
                 internalType: "address payable"
             }
         ],
-        outputs: [],
-        stateMutability: "payable"
+        outputs: [
+            {
+                name: "result",
+                type: "uint256",
+                internalType: "uint256"
+            }
+        ],
+        stateMutability: "view"
     },
     {
         type: "function",

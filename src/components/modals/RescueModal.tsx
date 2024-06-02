@@ -19,7 +19,6 @@ export const RescueModal: FC<{
         (accumulator, current) => accumulator + current.length,
         0
     );
-    const price = 0n;
     const recipient = address!;
 
     return (
@@ -72,7 +71,7 @@ export const RescueModal: FC<{
                             abi: RESCUE_NAME_ABI,
                             address: CONTRACT_ADDRESS[chainId],
                             functionName: "execute",
-                            args: [vaults, labels, price, recipient]
+                            args: [vaults, labels, recipient]
                         });
                     }}
                 >

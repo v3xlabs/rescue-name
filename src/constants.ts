@@ -3,5 +3,5 @@ import { mainnet, sepolia } from "wagmi/chains";
 
 export const CONTRACT_ADDRESS: { [key: number]: Address } = {
     [mainnet.id]: "0x0",
-    [sepolia.id]: "0x53d35F2735293Ca4b5599f378aC41a60b3910Ba5"
+    [sepolia.id]: "0x8c82dd2f5Ad2E4F70d2710Cc5290e0D80e42191B"
 };
