@@ -2,13 +2,13 @@
 
 An decentralized vault-based ENS renewal manager.
 
-Simply create a vault, top it up, supply it with a list of names, and anyone can renew your name.
-
 > 
 > 👷🏽‍♀️ Hackathon Project
 > 
 > This project was created at [ETHPrague 2024](https://ethprague.com)
 > 
+
+Simply create a vault, top it up, supply it with a list of names, and anyone can renew your name.
 
 ## Abstract
 
@@ -17,6 +17,7 @@ The idea is simple. A single smart contract, that manages vault creation, top-up
 ## Team
 
 This project was built together with [NevvDevv.eth](https://github.com/JustAnotherDevv) and [luc.eth](https://github.com/lucemans).
+
 A special thank you goes out to [Yash Goyal](https://github.com/yashgo0018) for co-debugging the substream tooling.
 
 ## Copyright
