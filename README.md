@@ -30,6 +30,8 @@ A special thank you goes out to [Yash Goyal](https://github.com/yashgo0018) for 
 
 ## Fun Facts
 
+Green Monsters Consumed: 3
+
 Total issues created during this hackathon: 9
 
 | Repository                                                | Issues                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
