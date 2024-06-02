@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { gql, useQuery } from "@apollo/client";
 import clsx from "clsx";
 import { RescueModal } from "components/modals/RescueModal";

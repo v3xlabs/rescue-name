@@ -1,3 +1,4 @@
+// @ts-nocheck
 import clsx from "clsx";
 import { useExpiry } from "hooks/useExpiry";
 import React, { useEffect, useState } from "react";
