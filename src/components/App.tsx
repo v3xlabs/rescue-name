@@ -1,15 +1,22 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { FiHeart } from "react-icons/fi";
+import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 
 import { NameList } from "./names/NameList";
 import { UserProfile } from "./profile/UserProfile";
 import { Tab, Tabs } from "./tabs/Tabs";
 import { VaultList } from "./vaults/VaultList";
 
+const client = new ApolloClient({
+    uri: "https://srv.streamingfast.io/9e804b35/graphql",
+    cache: new InMemoryCache()
+  });
+
 export const App = () => {
     const [tab, setTab] = useState<Tab>("vaults");
 
     return (
+        <ApolloProvider client={client}>
         <div className="relative flex min-h-dvh flex-col items-center gap-4 overflow-hidden bg-background-secondary p-4">
             <div className="flex w-full items-center justify-between">
                 <div>
@@ -64,5 +71,6 @@ export const App = () => {
                 </div>
             </div>
         </div>
+        </ApolloProvider>
     );
 };
