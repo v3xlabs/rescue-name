@@ -35,7 +35,7 @@ export const useExpiryNames = () => {
             const x = await axios.post(
                 // Yes, this uses a cors-anywhere bypass. This is a demo.
                 // The streamingfast entrypoint doesnt output the right cors headers
-                "https://cors-anywhere.herokuapp.com/https://srv.streamingfast.io/9e804b35/graphql",
+                "https://cors-anywhere.herokuapp.com/https://srv.streamingfast.io/b868bc69/graphql",
                 {
                     query
                 }
