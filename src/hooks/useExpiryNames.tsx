@@ -1,6 +1,7 @@
 import axios from "axios";
 import { gql } from "graphql-request";
 import useSWR from "swr";
+import { useBlockNumber, useChainId } from "wagmi";
 
 const query = gql`
     {
@@ -29,13 +30,16 @@ export type ExpiryNames = {
 };
 
 export const useExpiryNames = () => {
+    const chainId = useChainId();
+    const { data: block } = useBlockNumber({ chainId });
+
     return useSWR(
-        "/my/names",
+        "/subgrpah/" + block,
         async (): Promise<{ name: string; vault: string }[]> => {
             const x = await axios.post(
                 // Yes, this uses a cors-anywhere bypass. This is a demo.
                 // The streamingfast entrypoint doesnt output the right cors headers
-                "https://cors-anywhere.herokuapp.com/https://srv.streamingfast.io/708f83b3/graphql",
+                "https://cors-anywhere.herokuapp.com/https://srv.streamingfast.io/01bfe668/graphql",
                 {
                     query
                 }
