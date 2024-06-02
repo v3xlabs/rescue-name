@@ -21,7 +21,7 @@ export const VaultEntry: FC<{ vault: bigint }> = ({ vault }) => {
     return (
         <div>
             <div
-                className="flex justify-between border-b border-border p-2"
+                className="flex justify-between border-b border-border p-2 hover:cursor-pointer hover:bg-background-secondary"
                 onClick={() => setIsOpen(true)}
             >
                 <div>

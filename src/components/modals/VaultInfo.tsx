@@ -96,7 +96,7 @@ export const VaultInfo: FC<{ vaultId: bigint; onClose: () => void }> = ({
                                 className="group flex justify-between"
                             >
                                 <div className="flex items-center gap-2">
-                                    <div>{name}</div>
+                                    <div>{name}.eth</div>
                                     <div className="text-text-secondary">
                                         <NameExpiryDate name={name} />
                                     </div>
