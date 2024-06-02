@@ -21,6 +21,19 @@ const VAULT_QUERY = gql`
     }
 `;
 
+const NAME_QUERY = gql`
+    {
+        query {
+            allRescuenameRescueNameVaultCreateds {
+                nodes {
+                    vaultId
+                    owner
+                }
+            }
+        }
+    }
+`;
+
 export const NameList = () => {
     const { data: names } = useExpiryNames();
     const [expiryDates, setExpiryDates] = useState<{ [key: string]: bigint }>(
@@ -29,11 +42,11 @@ export const NameList = () => {
     const { address } = useAccount();
     const [selectedNames, setSelectedNames] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
-    const { data, loading, error } = useQuery(VAULT_QUERY);
+    // const { data, loading, error } = useQuery(VAULT_QUERY);
 
-    if (loading) return "Loading...";
+    // if (loading) return "Loading...";
 
-    if (error) return <pre>{error.message}</pre>;
+    // if (error) return <pre>{error.message}</pre>;
 
     const handleSelect = (name) => {
         const newSelectedNames = [...selectedNames]; 
@@ -75,9 +88,9 @@ export const NameList = () => {
         <div className="card w-full p-4">
             <div className="flex w-full items-center justify-between">
                 <div className="pl-2 font-bold">All Names</div>
-                <div className="pl-2 font-thin">
+                {/* <div className="pl-2 font-thin">
                     {data ? data.query.allRescuenameRescueNameVaultCreateds.nodes.length : ''} vaults
-                </div>
+                </div> */}
                 {/* <select className="appearance-none bg-background-secondary p-2 rounded-lg " name="filter" id="filter">
                 <option value="0">Vault 0</option>
                 </select> */}

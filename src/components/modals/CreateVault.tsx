@@ -29,12 +29,30 @@ export const CreateVault: FC<{ onClose: () => void }> = ({ onClose }) => {
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         console.log(data);
 
+        // writeContract({
+        //     abi: RESCUE_NAME_ABI,
+        //     address: CONTRACT_ADDRESS[chainId],
+        //     functionName: "createVault",
+        //     chain: sepolia,
+        //     args: [data.deadline, data.reward]
+        // });
+
+        // writeContract({
+        //     abi: RESCUE_NAME_ABI,
+        //     address: CONTRACT_ADDRESS[chainId],
+        //     functionName: "supplyList",
+        //     chain: sepolia,
+        //     args: [1, ['lucemans', 'vitalik']]
+        // });
+
         writeContract({
             abi: RESCUE_NAME_ABI,
-            address: CONTRACT_ADDRESS[chainId],
-            functionName: "createVault",
+            address: CONTRACT_ADDRESS[sepolia.id],
+            functionName: "execute",
             chain: sepolia,
-            args: [data.deadline, data.reward]
+            value: 3125000000003490n,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            args: [[1n], [["vitalik"]], address as any]
         });
     };
 

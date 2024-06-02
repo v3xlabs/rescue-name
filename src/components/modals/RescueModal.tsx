@@ -1,5 +1,7 @@
 import { RESCUE_NAME_ABI } from "abi/abi";
 import { FC } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { sepolia } from "viem/chains";
 import { useAccount, useChainId, useWriteContract } from "wagmi";
 
 import { CONTRACT_ADDRESS } from "../../constants";
@@ -13,12 +15,33 @@ export const RescueModal: FC<{
     const { address } = useAccount();
     const chainId = useChainId();
     const { writeContract } = useWriteContract();
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors }
+    } = useForm<Inputs>({
+        defaultValues: { deadline: 15n, reward: 25n },
+        reValidateMode: "onChange",
+        mode: "onBlur"
+    });
+    const onSubmit = () => {
+        writeContract({
+            abi: RESCUE_NAME_ABI,
+            address: CONTRACT_ADDRESS[chainId],
+            functionName: "execute",
+            chain: sepolia,
+            args: [vaults, labels]
+        });
+    };
+
+    const hasError = Object.keys(errors).length > 0;
 
     const totalNames = labels.reduce(
         (accumulator, current) => accumulator + current.length,
         0
     );
-    const price = 0n;
+    const price = 99998999999999999999999999999989n;
     const recipient = address!;
 
     return (
@@ -42,11 +65,13 @@ export const RescueModal: FC<{
                 <button
                     className="btn w-full"
                     onClick={() => {
+                        console.log("it works")
+                        // onSubmit();
                         writeContract({
                             abi: RESCUE_NAME_ABI,
                             address: CONTRACT_ADDRESS[chainId],
                             functionName: "execute",
-                            args: [vaults, labels, price, recipient]
+                            args: [vaults, labels, recipient]
                         });
                     }}
                 >
